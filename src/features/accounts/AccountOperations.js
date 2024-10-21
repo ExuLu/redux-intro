@@ -13,18 +13,24 @@ const AccountOperations = () => {
   const { balance, loan } = useSelector((state) => state.account);
 
   function handleDeposit() {
+    if (!depositAmount) return;
+
     dispatch(deposit(depositAmount));
 
     setDepositAmount('');
   }
 
   function handleWithdrawal() {
+    if (!withdrawalAmount) return;
+
     dispatch(withdraw(withdrawalAmount));
 
     setWithdrawalAmount('');
   }
 
   function handleRequestLoan() {
+    if (!loanAmount || !loanPurpose) return;
+
     dispatch(requestLoan(loanAmount, loanPurpose));
 
     setLoanAmount('');
