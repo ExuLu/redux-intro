@@ -18,6 +18,10 @@ button {
   cursor: pointer;
 }
 
+.payLoanButton {
+  margin-left: 8px;
+}
+
 .inputs {
   background-color: #f7f7f7;
   padding: 32px;
