@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useState } from 'react';
+
+import store from '../../store';
+import { createCustomer } from './customerSlice';
 
 function Customer() {
-  const [fullName, setFullName] = useState("");
-  const [nationalId, setNationalId] = useState("");
+  const [fullName, setFullName] = useState('');
+  const [nationalId, setNationalId] = useState('');
 
-  function handleClick() {}
+  function handleClick() {
+    if (!fullName || !nationalId) return;
+
+    store.dispatch(createCustomer(fullName, nationalId));
+
+    setFullName('');
+    setNationalId('');
+  }
 
   return (
     <div>
       <h2>Create new customer</h2>
-      <div className="inputs">
+      <div className='inputs'>
         <div>
           <label>Customer full name</label>
           <input
