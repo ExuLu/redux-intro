@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 
 const initialStateAccount = {
   balance: 0,
@@ -78,4 +78,11 @@ const updateName = (fullName) => ({
   payload: fullName,
 });
 
-const accountStore = createStore(accountReducer);
+const rootReducer = combineReducers({
+  account: accountReducer,
+  customer: customerReducer,
+});
+
+const store = createStore(rootReducer);
+
+console.log(store.getState());
