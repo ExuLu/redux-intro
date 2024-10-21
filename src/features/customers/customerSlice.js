@@ -35,4 +35,5 @@ const updateName = (fullName) => ({
   payload: fullName,
 });
 
-export { customerReducer, createCustomer, updateName };
+export default customerReducer;
+export { createCustomer, updateName };
