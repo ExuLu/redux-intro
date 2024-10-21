@@ -7,6 +7,14 @@ const initialState = {
   loanPurpose: '',
 };
 
+const deposit = (amount) => ({ type: 'account/deposit', payload: amount });
+const withdraw = (amount) => ({ type: 'account/withdraw', payload: amount });
+const requestLoan = (amount, purpose) => ({
+  type: 'account/requestLoan',
+  payload: { amount, purpose },
+});
+const payLoan = () => ({ type: 'account/payLoan' });
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'account/deposit':
@@ -36,12 +44,9 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(reducer);
 
-store.dispatch({ type: 'account/deposit', payload: 500 });
+store.dispatch(deposit(500));
 
 console.log(store.getState());
 
-store.dispatch({
-  type: 'account/requestLoan',
-  payload: { amount: 1000, purpose: 'Buy a car' },
-});
+store.dispatch(requestLoan(1000, 'Buy a car'));
 console.log(store.getState());
