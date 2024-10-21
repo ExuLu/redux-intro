@@ -10,7 +10,7 @@ const AccountOperations = () => {
   const [currency, setCurrency] = useState('USD');
 
   const dispatch = useDispatch();
-  const { balance, loan } = useSelector((state) => state.account);
+  const { balance, loan } = useSelector((store) => store.account);
 
   function handleDeposit() {
     if (!depositAmount) return;
@@ -22,6 +22,7 @@ const AccountOperations = () => {
 
   function handleWithdrawal() {
     if (!withdrawalAmount) return;
+    if (withdrawalAmount > balance) return;
 
     dispatch(withdraw(withdrawalAmount));
 
