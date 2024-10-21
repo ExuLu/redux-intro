@@ -51,7 +51,7 @@ const deposit = (amount, currency) => {
       `https://api.frankfurter.app/latest?base=${currency}&symbols=USD`
     );
     const data = await res.json();
-    const convertedAmount = (amount * data.rates['USD']).toFixed(2);
+    const convertedAmount = amount * data.rates['USD'];
 
     dispatch({ type: 'account/deposit', payload: convertedAmount });
   };
