@@ -1,82 +1,6 @@
 import { combineReducers, createStore } from 'redux';
-
-const initialStateAccount = {
-  balance: 0,
-  loan: 0,
-  loanPurpose: '',
-};
-
-const initialStateCustomer = {
-  fullName: '',
-  nationalID: '',
-  createdAt: '',
-};
-
-const accountReducer = (state = initialStateAccount, action) => {
-  switch (action.type) {
-    case 'account/deposit':
-      return { ...state, balance: state.balance + action.payload };
-    case 'account/withdraw':
-      return { ...state, balance: state.balance - action.payload };
-    case 'account/requestLoan':
-      if (state.loan > 0) return state;
-      return {
-        ...state,
-        loan: action.payload.amount,
-        balance: state.balance + action.payload.amount,
-        loanPurpose: action.payload.purpose,
-      };
-    case 'account/payLoan':
-      if (state.loan <= 0) return state;
-      return {
-        ...state,
-        loan: 0,
-        loanPurpose: '',
-        balance: state.balance - state.loan,
-      };
-    default:
-      return state;
-  }
-};
-
-const customerReducer = (state = initialStateCustomer, action) => {
-  switch (action.type) {
-    case 'customer/createCustomer':
-      return {
-        ...state,
-        fullName: action.payload.fullName,
-        nationalID: action.payload.nationalID,
-        createdAt: action.payload.createdAt,
-      };
-    case 'customer/updateName':
-      return { ...state, fullName: action.payload };
-
-    default:
-      return state;
-  }
-};
-
-const deposit = (amount) => ({ type: 'account/deposit', payload: amount });
-const withdraw = (amount) => ({ type: 'account/withdraw', payload: amount });
-const requestLoan = (amount, purpose) => ({
-  type: 'account/requestLoan',
-  payload: { amount, purpose },
-});
-const payLoan = () => ({ type: 'account/payLoan' });
-
-const createCustomer = (fullName, nationalID) => ({
-  type: 'customer/createCustomer',
-  payload: {
-    fullName,
-    nationalID,
-    createdAt: new Date().toISOString(),
-  },
-});
-
-const updateName = (fullName) => ({
-  type: 'customer/updateName',
-  payload: fullName,
-});
+import { accountReducer } from './features/accounts/accountSlice';
+import { customerReducer } from './features/customers/customerSlice';
 
 const rootReducer = combineReducers({
   account: accountReducer,
@@ -85,4 +9,4 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer);
 
-console.log(store.getState());
+export { store };
