@@ -31,7 +31,19 @@ const accountReducer = (state = initialStateAccount, action) => {
   }
 };
 
-const deposit = (amount) => ({ type: 'account/deposit', payload: amount });
+const deposit = (amount, currency) => {
+  if (currency === 'USD') return { type: 'account/deposit', payload: amount };
+
+  return async (dispatch, getState) => {
+    const res = await fetch(
+      `https://api.frankfurter.app/latest?base=${currency}&symbols=USD`
+    );
+    const data = await res.json();
+    const convertedAmount = (amount * data.rates['USD']).toFixed(2);
+
+    dispatch({ type: 'account/deposit', payload: convertedAmount });
+  };
+};
 const withdraw = (amount) => ({ type: 'account/withdraw', payload: amount });
 const requestLoan = (amount, purpose) => ({
   type: 'account/requestLoan',
