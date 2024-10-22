@@ -71,18 +71,18 @@ const accountSlice = createSlice({
   initialState,
   reducers: {
     deposit(state, action) {
-      state.balance = state.balance + action.payload;
+      state.balance += action.payload;
     },
 
     withdraw(state, action) {
-      state.balance = state.balance - action.payload;
+      state.balance -= action.payload;
     },
 
     requestLoan(state, action) {
       if (state.loan > 0) return;
 
       state.loan = action.payload.amount;
-      state.balance = state.balance + action.payload.amount;
+      state.balance += action.payload.amount;
       state.loanPurpose = action.payload.purpose;
     },
 
@@ -91,7 +91,7 @@ const accountSlice = createSlice({
 
       state.loan = 0;
       state.loanPurpose = '';
-      state.balance = state.balance - state.loan;
+      state.balance -= state.loan;
     },
   },
 });
