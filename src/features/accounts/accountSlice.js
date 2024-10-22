@@ -100,9 +100,9 @@ const accountSlice = createSlice({
     payLoan(state) {
       if (state.loan <= 0) return;
 
+      state.balance -= state.loan;
       state.loan = 0;
       state.loanPurpose = '';
-      state.balance -= state.loan;
     },
   },
 });
