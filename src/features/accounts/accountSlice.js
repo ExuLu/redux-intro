@@ -1,5 +1,3 @@
-import { type } from '@testing-library/user-event/dist/type';
-
 const initialStateAccount = {
   balance: 0,
   loan: 0,
